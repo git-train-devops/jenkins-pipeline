@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'This is build stage - trigger'
+                sh 'docker build -t my-first-python-app .'
             }
         }
         stage('Test') {
