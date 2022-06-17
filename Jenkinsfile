@@ -15,13 +15,15 @@ pipeline {
         }
         stage('Test') {
             steps {
-                try {
-                    sh 'docker run -t -d -u 1000:1000 --name first-pipeline my-first-python-app cat'
-                    sh 'docker exec -t first-pipeline pytest'
-                } catch (err) {
-                    echo "Failed: ${err}"
-                } finally {
-                    sh 'docker rm -f first-pipeline'
+                script {
+                    try {
+                        sh 'docker run -t -d -u 1000:1000 --name first-pipeline my-first-python-app cat'
+                        sh 'docker exec -t first-pipeline pytest'
+                    } catch (err) {
+                        echo "Failed: ${err}"
+                    } finally {
+                        sh 'docker rm -f first-pipeline'
+                    }
                 }
             }
         }
