@@ -11,7 +11,9 @@ pipeline {
                     }
                     //push the image
                 }
-                // sh 'docker build -t my-first-python-app .'
+                sh 'docker run -t -d -u 1000:1000 --name first-pipeline my-first-python-app cat'
+                sh 'docker exec -t first-pipeline pytest'
+                sh 'docker rm -f first-pipeline'
             }
         }
         stage('Push') {

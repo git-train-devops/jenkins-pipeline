@@ -3,7 +3,7 @@ FROM python:alpine AS base
 WORKDIR /app
 
 COPY requirements.txt .
-COPY app.py .
+COPY *.py .
 RUN pip3 install -r requirements.txt
 
 RUN export FLASK_APP=app
