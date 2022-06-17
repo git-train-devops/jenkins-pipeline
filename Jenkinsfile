@@ -2,7 +2,7 @@ pipeline {
     agent {label "agent1"}
 
     stages {
-        stage('Build&Test') {
+        stage('Build') {
             steps {
                 script {
                     def customImage = docker.build("my-first-python-app:latest")
@@ -11,14 +11,13 @@ pipeline {
                     // }
                     //push the image
                 }
+            }
+        }
+        stage('Test') {
+            steps {
                 sh 'docker run -t -d -u 1000:1000 --name first-pipeline my-first-python-app cat'
                 sh 'docker exec -t first-pipeline pytest'
                 sh 'docker rm -f first-pipeline'
-            }
-        }
-        stage('Push') {
-            steps {
-                sh 'push image'
             }
         }
         stage('Deploy') {
