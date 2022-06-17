@@ -6,9 +6,9 @@ pipeline {
             steps {
                 script {
                     def customImage = docker.build("my-first-python-app:latest")
-                    customImage.inside {
-                        sh 'pytest'
-                    }
+                    // customImage.inside {
+                    //     sh 'pytest'
+                    // }
                     //push the image
                 }
                 sh 'docker run -t -d -u 1000:1000 --name first-pipeline my-first-python-app cat'
