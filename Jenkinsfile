@@ -23,6 +23,7 @@ pipeline {
                         echo "Failed: ${err}"
                     } finally {
                         sh 'docker rm -f first-pipeline'
+                        sh 'exit 1'
                     }
                 }
             }
