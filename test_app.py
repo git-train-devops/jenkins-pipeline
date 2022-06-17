@@ -1,2 +1,2 @@
 def test_app_fail():
-    assert True, "Intentionally failed the testcase"
+    assert False, "Intentionally failed the testcase"
