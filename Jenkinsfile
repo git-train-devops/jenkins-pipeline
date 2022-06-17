@@ -21,7 +21,6 @@ pipeline {
                         sh 'docker exec -t first-pipeline pytest'
                     } catch (err) {
                         echo "Failed: ${err}"
-                    } finally {
                         sh 'docker rm -f first-pipeline'
                         sh 'exit 1'
                     }
