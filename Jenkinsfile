@@ -1,11 +1,13 @@
 pipeline {
     agent {label "agent1"}
-
+    environment {
+        DOCKER_IMAGE = "devopstraining1236/my-first-python-app:latest"
+    }
     stages {
         stage('Build') {
             steps {
                 script {
-                    def customImage = docker.build("devopstraining1236/my-first-python-app:latest")
+                    def customImage = docker.build(DOCKER_IMAGE)
                     // customImage.inside {
                     //     sh 'pytest'
                     // }
@@ -16,15 +18,16 @@ pipeline {
         stage('Test&push') {
             environment {
                 DOCKER = credentials('docker-hub-access-key')
+                CONTAINER = "first-pipeline"
             }
             steps {
                 script {
                     try {
-                        sh 'docker run -t -d -u 1000:1000 --name first-pipeline my-first-python-app cat'
-                        sh 'docker exec -t first-pipeline pytest'
+                        sh 'docker run -t -d -u 1000:1000 --name $CONTAINER $DOCKER_IMAGE cat'
+                        sh 'docker exec -t $CONTAINER pytest'
                     } catch (err) {
                         echo "Failed: ${err}"
-                        sh 'docker rm -f first-pipeline'
+                        sh 'docker rm -f $CONTAINER'
                         sh 'exit 1'
                     } finally {
                         echo "This is for docker container cleanup"
@@ -32,7 +35,7 @@ pipeline {
                     try {
                         echo "This is for docker push"
                         // sh 'docker login -u $DOCKER_USR -p $DOCKER_PWD'
-                        // sh 'docker push devopstraining1236/my-first-python-app:latest'
+                        // sh 'docker push $DOCKER_IMAGE'
                     }
                     finally {
                         echo "This is for docker image cleanup"
