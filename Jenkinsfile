@@ -27,9 +27,10 @@ pipeline {
                         sh 'docker rm -f first-pipeline'
                         sh 'exit 1'
                     } finally {
-                        echo "Hello"
+                        echo "This is for docker container cleanup"
                     }
                     try {
+                        echo "This is for docker push"
                         // sh 'docker login -u $DOCKER_USR -p $DOCKER_PWD'
                         // sh 'docker push devopstraining1236/my-first-python-app:latest'
                     }
