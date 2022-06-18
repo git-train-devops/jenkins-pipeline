@@ -29,9 +29,8 @@ pipeline {
                         echo "Failed: ${err}"
                         sh 'docker rm -f $CONTAINER'
                         sh 'exit 1'
-                    } finally {
-                        echo "This is for docker container cleanup"
                     }
+                    sh "docker rm -f $CONTAINER"
                     try {
                         echo "This is for docker push"
                         // sh 'docker login -u $DOCKER_USR -p $DOCKER_PWD'
