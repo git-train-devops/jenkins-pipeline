@@ -2,6 +2,8 @@ pipeline {
     agent {label "agent1"}
     environment {
         DOCKER_IMAGE = "devopstraining1236/my-first-python-app:latest"
+        DOCKER = credentials('docker-hub-access-key')
+        CONTAINER = "first-pipeline"
     }
     stages {
         stage('Build') {
@@ -16,10 +18,6 @@ pipeline {
             }
         }
         stage('Test&push') {
-            environment {
-                DOCKER = credentials('docker-hub-access-key')
-                CONTAINER = "first-pipeline"
-            }
             steps {
                 script {
                     try {
@@ -52,7 +50,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'This is deploy stage'
+                sh 'ansible-playbook -i hosts -e DOCKER_IMAGE=$DOCKER_IMAGE -e CONTAINER=$CONTAINER -e DOCKER_USR=$DOCKER_USR -e DOCKER_PSW=$DOCKER_PSW playbook.yml'
             }
         }
     }

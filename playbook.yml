@@ -1,0 +1,16 @@
+---
+- name: Create flask server
+  hosts: webservers
+
+  tasks:
+  - name: Docker login
+    ansible.builtin.shell:
+      docker login -u $DOCKER_USR -p $DOCKER_PSW
+  - name: Restart a container
+    docker_container:
+      name: $CONTAINER
+      image: $DOCKER_IMAGE
+      state: started
+      restart: yes
+      ports:
+      - "5000:5000"
