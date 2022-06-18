@@ -5,7 +5,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    def customImage = docker.build("my-first-python-app:latest")
+                    def customImage = docker.build("devopstraining1236/my-first-python-app:latest")
                     // customImage.inside {
                     //     sh 'pytest'
                     // }
@@ -13,7 +13,10 @@ pipeline {
                 }
             }
         }
-        stage('Test') {
+        stage('Test&push') {
+            environment {
+                DOCKER = credentials('docker-hub-access-key')
+            }
             steps {
                 script {
                     try {
@@ -23,6 +26,12 @@ pipeline {
                         echo "Failed: ${err}"
                         sh 'docker rm -f first-pipeline'
                         sh 'exit 1'
+                    } finally {
+                        echo "Hello"
+                    }
+                    try {
+                        // sh 'docker login -u $DOCKER_USR -p $DOCKER_PWD'
+                        // sh 'docker push devopstraining1236/my-first-python-app:latest'
                     }
                 }
             }
