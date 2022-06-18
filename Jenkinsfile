@@ -34,6 +34,9 @@ pipeline {
                         // sh 'docker login -u $DOCKER_USR -p $DOCKER_PWD'
                         // sh 'docker push devopstraining1236/my-first-python-app:latest'
                     }
+                    finally {
+                        echo "This is for docker image cleanup"
+                    }
                 }
             }
         }
