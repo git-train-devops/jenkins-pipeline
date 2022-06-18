@@ -32,12 +32,20 @@ pipeline {
                     }
                     sh "docker rm -f $CONTAINER"
                     try {
-                        echo "This is for docker push"
-                        // sh 'docker login -u $DOCKER_USR -p $DOCKER_PWD'
-                        // sh 'docker push $DOCKER_IMAGE'
+                        echo "Docker login ......"
+                        sh 'docker login -u $DOCKER_USR -p $DOCKER_PWD'
+                        echo "Docker push ......."
+                        sh 'docker push $DOCKER_IMAGE'
+                        echo "Docker logout ......."
+                        sh 'docker logout'
+                    }
+                    catch (err) {
+                        echo "Failed: ${err}"
+                        sh 'exit 1'
                     }
                     finally {
-                        echo "This is for docker image cleanup"
+                        echo "removing docker image ...... $DOCKER_IMAGE"
+                        sh "docker rmi -f $DOCKER_IMAGE"
                     }
                 }
             }
