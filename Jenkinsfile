@@ -33,7 +33,7 @@ pipeline {
                     sh "docker rm -f $CONTAINER"
                     try {
                         echo "Docker login ......"
-                        sh 'docker login -u $DOCKER_USR -p $DOCKER_PWD'
+                        sh 'docker login -u $DOCKER_USR -p $DOCKER_PSW'
                         echo "Docker push ......."
                         sh 'docker push $DOCKER_IMAGE'
                         echo "Docker logout ......."
