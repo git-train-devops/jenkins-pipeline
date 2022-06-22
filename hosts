@@ -1,2 +1,6 @@
+[all:vars]
+ansible_connection=ssh
+ansible_user=dhanababu
+
 [webservers]
 external
