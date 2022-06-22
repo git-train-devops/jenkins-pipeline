@@ -11,7 +11,7 @@
   #     reauthorize: yes
   - name: unlock session
     shell:
-      security unlock-keychain -u
+      security unlock-keychain -p {{sys_pwd}}
 
   - name: Start a container
     docker_container:
