@@ -3,13 +3,17 @@
   hosts: webservers
 
   tasks:
-  - name: Docker login
-    ansible.builtin.shell:
-      docker login -u $DOCKER_USR -p $DOCKER_PSW
+  - name: Log into private registry and force re-authorization
+  docker_login:
+    registry: registry.hub.docker.com
+    username: {{ DOCKER_USR }}
+    password: {{ DOCKER_PSW }}
+    reauthorize: yes
+
   - name: Start a container
     docker_container:
-      name: $CONTAINER
-      image: $DOCKER_IMAGE
+      name: {{ CONTAINER }}
+      image: {{ DOCKER_IMAGE }}
       state: started
       restart: yes
       ports:
