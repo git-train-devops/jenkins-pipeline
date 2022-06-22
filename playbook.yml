@@ -11,10 +11,10 @@
     reauthorize: yes
 
   - name: Start a container
-    docker_container:
-      name: "{{CONTAINER}}"
-      image: "{{DOCKER_IMAGE}}"
-      state: started
-      restart: yes
-      ports:
-      - "5000:5000"
+  docker_container:
+    name: "{{CONTAINER}}"
+    image: "{{DOCKER_IMAGE}}"
+    state: started
+    restart: yes
+    ports:
+    - "5000:5000"
