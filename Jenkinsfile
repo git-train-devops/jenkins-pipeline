@@ -51,7 +51,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'ansible-playbook -i hosts -e DOCKER_IMAGE=$DOCKER_IMAGE -e CONTAINER=$CONTAINER -e DOCKER_USR=$DOCKER_USR -e DOCKER_PSW=$DOCKER_PSW -e sys_usr=$SYS_CREDS_USR -e sys_pwd=$SYS_CREDS_PWD playbook.yml'
+                sh 'ansible-playbook -i hosts -e DOCKER_IMAGE=$DOCKER_IMAGE -e CONTAINER=$CONTAINER -e DOCKER_USR=$DOCKER_USR -e DOCKER_PSW=$DOCKER_PSW -e sys_usr=$SYS_CREDS_USR -e sys_pwd=$SYS_CREDS_PSW playbook.yml'
             }
         }
     }
