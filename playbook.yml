@@ -5,7 +5,7 @@
   tasks:
   - name: Log into private registry and force re-authorization
     docker_login:
-      registry: registry.hub.docker.com
+      # registry: registry.hub.docker.com
       username: "{{DOCKER_USR}}"
       password: "{{DOCKER_PSW}}"
       reauthorize: yes
