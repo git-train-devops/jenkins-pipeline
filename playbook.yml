@@ -9,6 +9,9 @@
   #     username: "{{DOCKER_USR}}"
   #     password: "{{DOCKER_PSW}}"
   #     reauthorize: yes
+  - name: unlock session
+    shell:
+      security unlock-keychain -u {{sys_usr}} -p {{sys_pwd}}
 
   - name: Start a container
     docker_container:

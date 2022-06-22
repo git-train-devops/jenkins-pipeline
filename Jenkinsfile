@@ -3,6 +3,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = "devopstraining1236/my-first-python-app:latest"
         DOCKER = credentials('docker-hub-access-key')
+        SYS_CREDS = credentials('sys-user-pass')
         CONTAINER = "first-pipeline"
     }
     stages {
@@ -50,7 +51,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'ansible-playbook -i hosts -e DOCKER_IMAGE=$DOCKER_IMAGE -e CONTAINER=$CONTAINER -e DOCKER_USR=$DOCKER_USR -e DOCKER_PSW=$DOCKER_PSW playbook.yml'
+                sh 'ansible-playbook -i hosts -e DOCKER_IMAGE=$DOCKER_IMAGE -e CONTAINER=$CONTAINER -e DOCKER_USR=$DOCKER_USR -e DOCKER_PSW=$DOCKER_PSW -e sys_usr=$SYS_CREDS_USR -e sys_pwd=$SYS_CREDS_PWD playbook.yml'
             }
         }
     }
