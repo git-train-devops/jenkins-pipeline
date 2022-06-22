@@ -6,7 +6,7 @@
   - name: Docker login
     ansible.builtin.shell:
       docker login -u $DOCKER_USR -p $DOCKER_PSW
-  - name: Restart a container
+  - name:start a container
     docker_container:
       name: $CONTAINER
       image: $DOCKER_IMAGE
