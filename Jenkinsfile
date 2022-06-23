@@ -59,7 +59,12 @@ pipeline {
     post { 
         success { 
             sh '''
-            curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/:organization/:repos/statuses/$(git rev-parse HEAD) -d '{"state": "success", "target_url": "${BUILD_URL}", "description": "The build has succeeded!"}'
+            curl -XPOST -H "Accept: application/vnd.github.v3+json" -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/git-train-devops/jenkins-pipeline/statuses/$(git rev-parse HEAD) -d '{"state": "success", "target_url": "${BUILD_URL}", "description": "The build has succeeded!", "context":"continuous-integration/jenkins"}'
+            '''
+        }
+        failure { 
+            sh '''
+            curl -XPOST -H "Accept: application/vnd.github.v3+json" -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/git-train-devops/jenkins-pipeline/statuses/$(git rev-parse HEAD) -d '{"state": "failure", "target_url": "${BUILD_URL}", "description": "The build has failed!", "context":"continuous-integration/jenkins"}'
             '''
         }
     }
