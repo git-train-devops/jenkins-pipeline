@@ -4,7 +4,7 @@ pipeline {
         DOCKER_IMAGE = "devopstraining1236/my-first-python-app:latest"
         DOCKER = credentials('docker-hub-access-key')
         SYS_CREDS = credentials('sys-user-pass')
-        GITHUB_TOKEN = credentials('gitub-token')
+        GITHUB_TOKEN = credentials('github-token')
         CONTAINER = "first-pipeline"
     }
     stages {
