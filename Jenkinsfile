@@ -4,6 +4,7 @@ pipeline {
         DOCKER_IMAGE = "devopstraining1236/my-first-python-app:latest"
         DOCKER = credentials('docker-hub-access-key')
         SYS_CREDS = credentials('sys-user-pass')
+        GITHUB_TOKEN = credentials('gitub-token')
         CONTAINER = "first-pipeline"
     }
     stages {
@@ -53,6 +54,17 @@ pipeline {
             steps {
                 sh 'ansible-playbook -i hosts -e DOCKER_IMAGE=$DOCKER_IMAGE -e CONTAINER=$CONTAINER -e DOCKER_USR=$DOCKER_USR -e DOCKER_PSW=$DOCKER_PSW -e sys_usr=$SYS_CREDS_USR -e sys_pwd=$SYS_CREDS_PSW playbook.yml'
             }
+        }
+    }
+    post { 
+        always { 
+            sh '''
+            curl -XPOST -H "Authorization: token $GITHUB_TOKEN" https://api.github.com/repos/:organization/:repos/statuses/$(git rev-parse HEAD) -d "{
+                \"state\": \"success\",
+                \"target_url\": \"${BUILD_URL}\",
+                \"description\": \"The build has succeeded!\"
+            }"
+            '''
         }
     }
 }
