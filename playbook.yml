@@ -14,9 +14,9 @@
       security unlock-keychain -p {{sys_pwd}}
   
   - name: "create the file"
-    shell:
+    shell: |
       echo "First Line" > cat > /Users/dhanababu/training/todo/example.txt
-      echo "First Line" > cat >> /Users/dhanababu/training/todo/example.txt
+      echo "Second Line" > cat >> /Users/dhanababu/training/todo/example.txt
 
   - name: Start a container
     docker_container:
