@@ -27,4 +27,4 @@
       ports:
       - "9000:5000"
       volumes:
-      - "/todo-db/:/Users/dhanababu/training/todo/"
+      - "/Users/dhanababu/training/todo/:/todo-db/"
